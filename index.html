@@ -333,11 +333,12 @@ footer b{color:var(--ink-2);font-weight:400}
   margin:var(--s5) calc(-1 * var(--s5)) 0;
   border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
   background:var(--ground-2);padding:var(--s3)}
-/* Captions align on their top edge across both columns: the two pictures are
-   deliberately different heights (that asymmetry IS the finding), so the
-   captions are pinned rather than floating under each image at its own y. */
+/* Each caption sits directly under its own image. Pinning the captions to a
+   shared bottom edge was the first attempt and it read as a bug: the blank menu
+   shot is a third the height of the restaurant shot, so its caption hung in a
+   dead field of ground with nothing to explain. Alignment across columns is
+   worth less than a caption that touches what it describes. */
 .shot{margin:0;min-width:0;display:flex;flex-direction:column}
-.shot img{margin-bottom:auto}
 .shot img{display:block;width:100%;height:auto;border:1px solid var(--rule)}
 .shot figcaption{font:400 13px/1.6 var(--mono);color:var(--muted);
   padding:var(--s3) 0 0;max-width:52ch}
