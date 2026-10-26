@@ -4,18 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
-<title>Avis de sécurité — aftereightsousse.tn, 26 octobre 2026</title>
+<title>Avis de sécurité / Security review — aftereightsousse.tn, 26 octobre 2026</title>
 <meta name="description" content="Six points relevés lors d'une revue passive de aftereightsousse.tn : un menu qui ne s'affiche plus, aucun DMARC, deux sous-domaines orphelins, et trois points mineurs.">
 <!--
-  French edition of the aftereightsousse.tn review. Same findings, same
-  evidence, same design system; the prose is written in French rather than
-  translated sentence-by-sentence, so the rhythm matches the language.
+  Bilingual edition of the aftereightsousse.tn review. French and English carry
+  the same findings, the same evidence, the same section order; the French is
+  written rather than translated sentence-by-sentence, so the rhythm matches the
+  language. French is the resting state, English the opt-in.
 
-  No <script>: the theme toggle is a hidden checkbox read by :has(). It ships
-  CHECKED, so dark is the resting state and light is the opt-in. The label still
-  names the state you would switch to, not the one you are in. No external
-  requests: fonts are data URIs, both screenshots are inline webp, the diagram
-  is hand-authored SVG.
+  No <script>: BOTH controls are hidden checkboxes read by :has(). The theme one
+  ships CHECKED, so dark is the resting state and light is opt-in. The language
+  one ships unchecked, so French shows and English is opt-in. Each label names
+  the state you would switch to, not the one you are in. The inactive language
+  is display:none, which also keeps it out of innerText, so the two prose bodies
+  never count against each other.
+
+  No external requests: fonts are data URIs, both screenshots are inline webp,
+  the diagram is hand-authored SVG and exists twice, once per language, with its
+  marker and aria ids suffixed _en so the two copies never collide.
 -->
 <style>
 
@@ -336,13 +342,27 @@ footer b{color:var(--ink-2);font-weight:400}
   .pair{grid-template-columns:1fr;margin-left:calc(-1 * var(--s4));
     margin-right:calc(-1 * var(--s4));padding:var(--s2)}
 }
+
+/* ── Language switch ────────────────────────────────────────────────────────
+   Same mechanism as the theme toggle: a hidden checkbox read by :has(). No
+   <script>, so both languages ship in the file and CSS decides which is
+   displayed. The hidden one is display:none, which also keeps it out of
+   innerText, so the two never count against each other. */
+.i18n{display:block}
+.i18n.en{display:none}
+body:has(#lg:checked) .i18n.fr{display:none}
+body:has(#lg:checked) .i18n.en{display:block}
+.hero .toggles{display:flex;flex-wrap:wrap;gap:var(--s2);justify-content:flex-end}
+@media(max-width:640px){.hero .toggles{justify-content:flex-start}}
 </style>
 </head>
 <body>
 
 <input class="sw" type="checkbox" id="dm" checked>
+<input class="sw" type="checkbox" id="lg">
 
 <div class="wrap">
+<div class="i18n fr" lang="fr">
 <header>
   <div class="hero">
     <div>
@@ -356,6 +376,10 @@ footer b{color:var(--ink-2);font-weight:400}
       règlent aujourd'hui.</p>
     </div>
     <div>
+      <label class="toggle" for="lg">
+        <span class="track" aria-hidden="true"></span>
+        <span class="off">EN</span><span class="on">EN</span>
+      </label>
       <label class="toggle" for="dm">
         <span class="track" aria-hidden="true"></span>
         <span class="off">Sombre</span><span class="on">Clair</span>
@@ -410,59 +434,6 @@ footer b{color:var(--ink-2);font-weight:400}
   de bloquer quoi que ce soit. Il commence simplement à vous envoyer des rapports.
   Passez à <span class="mono">p=quarantine</span> une fois ces rapports propres,
   en général au bout de deux à quatre semaines.</p>
-</section>
-
-<section>
-  <h2>Les six points, classés par ce qu'ils vous coûtent</h2>
-  <p class="lede">La gravité est ici un impact commercial, pas du théâtre autour
-  d'un score CVSS. Un e-mail falsifié passe avant un menu mort : le menu vous
-  coûte des ventes, l'e-mail peut coûter de l'argent à vos clients. Les deux se
-  corrigent aujourd'hui, mais l'un des deux endommage votre réputation, pas
-  seulement votre chiffre d'affaires.</p>
-
-  <table>
-    <thead>
-      <tr><th>N°</th><th>Constat</th><th>Coût pour l'activité</th><th>Correction</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td data-l="N°" class="num">01</td>
-        <td data-l="Constat">Aucun enregistrement DMARC : n'importe qui peut écrire en tant que <span class="mono">@aftereightsousse.tn</span></td>
-        <td data-l="Coût">Hameçonnage visant vos propres clients, depuis votre propre nom</td>
-        <td data-l="Correction"><span class="tag now">tout de suite</span></td>
-      </tr>
-      <tr>
-        <td data-l="N°" class="num">02</td>
-        <td data-l="Constat">La page menu échoue définitivement : le backend renvoie 503, et le code n'a aucun chemin d'erreur</td>
-        <td data-l="Coût">Les clients ne peuvent ni voir ni commander. C'est le métier même du site</td>
-        <td data-l="Correction"><span class="tag now">tout de suite</span></td>
-      </tr>
-      <tr>
-        <td data-l="N°" class="num">03</td>
-        <td data-l="Constat">Deux sous-domaines pointent vers GitHub sans qu'aucun site ne s'y trouve</td>
-        <td data-l="Coût">Un inconnu peut héberger une page à l'adresse <span class="mono">mail.</span>votre-domaine</td>
-        <td data-l="Correction"><span class="tag later">ce mois-ci</span></td>
-      </tr>
-      <tr>
-        <td data-l="N°" class="num">04</td>
-        <td data-l="Constat">Fichier source publié : tout le code de l'application, plus l'adresse du backend</td>
-        <td data-l="Coût">Rien directement. Cela offre une carte au lecteur</td>
-        <td data-l="Correction"><span class="tag later">ce mois-ci</span></td>
-      </tr>
-      <tr>
-        <td data-l="N°" class="num">05</td>
-        <td data-l="Constat">axios 0.27.2, publié en avril 2022, au moins trois avis de sécurité depuis</td>
-        <td data-l="Coût">Aucun cas atteignable connu ici. Hygiène de maintenance</td>
-        <td data-l="Correction"><span class="tag fine">quand c'est possible</span></td>
-      </tr>
-      <tr>
-        <td data-l="N°" class="num">06</td>
-        <td data-l="Constat">Le HTTPS échoue sur le domaine nu : seul <span class="mono">www</span> a un certificat correspondant</td>
-        <td data-l="Coût">Un avertissement inquiétant si quelqu'un le tape en https</td>
-        <td data-l="Correction"><span class="tag fine">quand c'est possible</span></td>
-      </tr>
-    </tbody>
-  </table>
 </section>
 
 <section>
@@ -612,6 +583,59 @@ footer b{color:var(--ink-2);font-weight:400}
 </section>
 
 <section>
+  <h2>Les six points, classés par ce qu'ils vous coûtent</h2>
+  <p class="lede">La gravité est ici un impact commercial, pas du théâtre autour
+  d'un score CVSS. Un e-mail falsifié passe avant un menu mort : le menu vous
+  coûte des ventes, l'e-mail peut coûter de l'argent à vos clients. Les deux se
+  corrigent aujourd'hui, mais l'un des deux endommage votre réputation, pas
+  seulement votre chiffre d'affaires.</p>
+
+  <table>
+    <thead>
+      <tr><th>N°</th><th>Constat</th><th>Coût pour l'activité</th><th>Correction</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-l="N°" class="num">01</td>
+        <td data-l="Constat">Aucun enregistrement DMARC : n'importe qui peut écrire en tant que <span class="mono">@aftereightsousse.tn</span></td>
+        <td data-l="Coût">Hameçonnage visant vos propres clients, depuis votre propre nom</td>
+        <td data-l="Correction"><span class="tag now">tout de suite</span></td>
+      </tr>
+      <tr>
+        <td data-l="N°" class="num">02</td>
+        <td data-l="Constat">La page menu échoue définitivement : le backend renvoie 503, et le code n'a aucun chemin d'erreur</td>
+        <td data-l="Coût">Les clients ne peuvent ni voir ni commander. C'est le métier même du site</td>
+        <td data-l="Correction"><span class="tag now">tout de suite</span></td>
+      </tr>
+      <tr>
+        <td data-l="N°" class="num">03</td>
+        <td data-l="Constat">Deux sous-domaines pointent vers GitHub sans qu'aucun site ne s'y trouve</td>
+        <td data-l="Coût">Un inconnu peut héberger une page à l'adresse <span class="mono">mail.</span>votre-domaine</td>
+        <td data-l="Correction"><span class="tag later">ce mois-ci</span></td>
+      </tr>
+      <tr>
+        <td data-l="N°" class="num">04</td>
+        <td data-l="Constat">Fichier source publié : tout le code de l'application, plus l'adresse du backend</td>
+        <td data-l="Coût">Rien directement. Cela offre une carte au lecteur</td>
+        <td data-l="Correction"><span class="tag later">ce mois-ci</span></td>
+      </tr>
+      <tr>
+        <td data-l="N°" class="num">05</td>
+        <td data-l="Constat">axios 0.27.2, publié en avril 2022, au moins trois avis de sécurité depuis</td>
+        <td data-l="Coût">Aucun cas atteignable connu ici. Hygiène de maintenance</td>
+        <td data-l="Correction"><span class="tag fine">quand c'est possible</span></td>
+      </tr>
+      <tr>
+        <td data-l="N°" class="num">06</td>
+        <td data-l="Constat">Le HTTPS échoue sur le domaine nu : seul <span class="mono">www</span> a un certificat correspondant</td>
+        <td data-l="Coût">Un avertissement inquiétant si quelqu'un le tape en https</td>
+        <td data-l="Correction"><span class="tag fine">quand c'est possible</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
   <h2>Deux portes sur votre domaine sont restées ouvertes</h2>
   <p class="lede">C'est le constat qui paraît alarmant et qui est le moins urgent
   des trois. Il compte pour une raison précise : l'adresse serait réelle, et le
@@ -644,9 +668,8 @@ footer b{color:var(--ink-2);font-weight:400}
     Aucun mot de passe ni donnée client n'est exposé : le site n'a pas de connexion
     et ne dépose aucun cookie. Le gain, c'est votre nom : un lien auquel les gens
     accordent déjà une demi-confiance, annonçant que le menu a déménagé et
-    réclamant un numéro de carte. Voilà pourquoi ce point est troisième et non
-    premier : il faut que quelqu'un vous remarque, alors que le menu mort n'a
-    besoin de personne.</p>
+    réclamant un numéro de carte. C'est pourquoi il passe après le menu mort : il faut que quelqu'un vous
+  remarque, alors que le menu n'a besoin de personne.</p>
   </div>
 
   <p class="lede" style="margin-top:var(--s5);margin-bottom:0">La correction
@@ -727,5 +750,374 @@ footer b{color:var(--ink-2);font-weight:400}
 
 </div>
 
-</body>
+<div class="i18n en" lang="en">
+<header>
+  <div class="hero">
+    <div>
+      <p class="kicker">Security and availability review · aftereightsousse.tn · 26 October 2026</p>
+      <h1>Anyone can send email pretending to be you</h1>
+      <p class="lead">Your domain publishes no DMARC record and your SPF ends in a
+      soft fail, so nothing stops a stranger from sending mail that looks like it
+      came from your reservations address, and nothing tells you when it happens.
+      The second point, a menu that no longer draws, is more visible but simpler to
+      fix. Both can be closed today.</p>
+    </div>
+    <div>
+      <label class="toggle" for="lg">
+        <span class="track" aria-hidden="true"></span>
+        <span class="off">FR</span><span class="on">FR</span>
+      </label>
+      <label class="toggle" for="dm">
+        <span class="track" aria-hidden="true"></span>
+        <span class="off">Dark</span><span class="on">Light</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="chips">
+    <span class="chip">static React on GitHub Pages</span>
+    <span class="chip">2 of 6 need action</span>
+    <span class="chip">tested 26 Oct 2026</span>
+    <span class="chip">no exploitation attempted</span>
+  </div>
+</header>
+
+<section>
+  <h2>Your domain has no instruction to reject a forged sender</h2>
+  <p class="lede">Your domain's SPF record ends in <span class="mono">~all</span>,
+  which tells receiving servers "soft-fail", and there is no DMARC record at all.
+  Neither one stops a forgery. Together they are an invitation.</p>
+
+  <div class="grid">
+    <div class="panel">
+      <p class="kicker">Highest impact · affects every customer</p>
+      <div class="prose">
+        <p style="color:var(--ink-2);font-size:16px;margin:0">A message arriving
+        from <span class="mono">reservations@aftereightsousse.tn</span> that lands
+        in the inbox, passes a quick glance, and asks a customer to confirm a
+        booking by paying a deposit to an account that is not yours. Without
+        DMARC, the receiving server has no instruction to reject or quarantine it,
+        and you get no reports telling you it happened.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <span class="fig">0</span>
+      <span class="fig-label">DMARC records published,<br>queried 26 Oct 2026</span>
+    </div>
+  </div>
+
+  <div class="rows" style="margin-top:var(--s5)">
+    <div class="row"><span class="k">SPF, as published</span><span class="v">v=spf1 … ~all</span></div>
+    <div class="row"><span class="k">DMARC at <span class="mono">_dmarc.aftereightsousse.tn</span></span><span class="v">none</span></div>
+    <div class="row"><span class="k">DKIM, seven common selectors tried</span><span class="v">none found</span></div>
+    <div class="row"><span class="k">Receiving servers told to reject forgeries</span><span class="v">no</span></div>
+  </div>
+
+  <p class="lede" style="margin-top:var(--s5);margin-bottom:0">A one-line DMARC
+  record in monitor mode costs nothing and cannot break your mail, because at
+  <span class="mono">p=none</span> it instructs nobody to block anything. It just
+  starts sending you reports. Move to <span class="mono">p=quarantine</span> once
+  those reports are clean, typically two to four weeks.</p>
+</section>
+
+<section>
+  <h2>The menu is a spinner that never stops</h2>
+
+  <div class="grid">
+    <div class="panel">
+      <p class="kicker">Probably known already · here is the mechanism</p>
+      <p style="font:400 1.3rem/1.35 var(--serif);margin:0 0 var(--s3)">Every dish,
+      every price, unreachable. The page is not broken — it is waiting.</p>
+      <div class="prose">
+        <p style="color:var(--ink-2);font-size:16px;margin:0">The site is a React
+        app. It loads a single JSON file from a Heroku app, and only then draws the
+        menu. That Heroku app answers <span class="mono">503</span>, so the request
+        fails, and the code that draws the menu has no error branch. The spinner
+        stays.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <span class="fig">503</span>
+      <span class="fig-label">HTTP status from the backend,<br>measured 26 Oct 2026, 01:00</span>
+    </div>
+  </div>
+
+  <div class="pair">
+    <figure class="shot">
+      <img src="data:image/webp;base64,___IMG___" alt="The After Eight landing page: a photograph of the restaurant interior with the heading The Right Place To Enjoy Food And Relax, and two buttons labelled Menu and Call Us">
+      <figcaption><b>What works.</b> <span class="mono">/</span> — the landing
+      route, which needs no data. Photograph, heading, two buttons. This is what
+      the owner sees when they check the site.</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="data:image/webp;base64,___IMG___" alt="The menu page: a blank white page with only a small green circular logo centred and no other content">
+      <figcaption><b>What does not.</b> <span class="mono">/#/menu</span> — the
+      route one click to the right. The green mark is the loading spinner
+      <span class="mono">loader.89ba5735….png</span>, still spinning after six
+      seconds. Nothing else ever renders.</figcaption>
+    </figure>
+  </div>
+  <p class="src">Both captured 26 October 2026, 01:00 Africa/Tunis, in a clean
+  browser profile at 1240×800, six seconds after load. The menu capture is
+  unedited apart from cropping the empty margins.</p>
+
+  <div class="note">
+    <p style="margin:0"><strong>The landing page is fine.</strong> It is a separate
+    route with no data dependency. That is also why the failure is easy to miss: the
+    site looks healthy from the front door, and it sits one click behind it.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Why the spinner, in one drawing</h2>
+  <p class="lede">Four steps succeed and the fifth has nowhere to go. The missing
+  arrow is the whole bug. Compare the two paths out of the backend call.</p>
+
+  <figure class="dgm">
+    <svg viewBox="0 0 780 250" role="img" aria-labelledby="f1t_en f1d_en">
+      <title id="f1t_en">Request chain from the browser to the Heroku backend, and the two possible outcomes</title>
+      <desc id="f1d_en">The browser loads static files from GitHub Pages, which return 200. The app then requests a JSON payload from the Heroku backend. If that request succeeds the menu renders. If it returns 503, as it does today, no handler exists, the data state stays null, and the loading spinner remains on screen indefinitely.</desc>
+
+      <rect class="box" x="4" y="100" width="112" height="52" rx="3"/>
+      <rect class="badge" x="10" y="106" width="15" height="13" rx="2"/>
+      <text class="badge-t" x="17.5" y="115.5" text-anchor="middle">1</text>
+      <text class="lt" x="60" y="122" text-anchor="middle">browser</text>
+      <text class="lt-s" x="60" y="137" text-anchor="middle">/#/menu</text>
+
+      <rect class="box" x="154" y="100" width="150" height="52" rx="3"/>
+      <rect class="badge" x="160" y="106" width="15" height="13" rx="2"/>
+      <text class="badge-t" x="167.5" y="115.5" text-anchor="middle">2</text>
+      <text class="lt" x="229" y="122" text-anchor="middle">GitHub Pages</text>
+      <text class="lt-s" x="229" y="137" text-anchor="middle">static files · 200</text>
+
+      <rect class="box-a" x="342" y="100" width="152" height="52" rx="3"/>
+      <rect class="badge" x="348" y="106" width="15" height="13" rx="2"/>
+      <text class="badge-t" x="355.5" y="115.5" text-anchor="middle">3</text>
+      <text class="lt" x="418" y="122" text-anchor="middle">Heroku backend</text>
+      <text class="lt-s" x="418" y="137" text-anchor="middle">GET /data · 503</text>
+
+      <rect class="box" x="556" y="24" width="180" height="52" rx="3"/>
+      <rect class="badge" x="562" y="30" width="15" height="13" rx="2"/>
+      <text class="badge-t" x="569.5" y="39.5" text-anchor="middle">4</text>
+      <text class="lt" x="646" y="46" text-anchor="middle">menu renders</text>
+      <text class="lt-s" x="646" y="61" text-anchor="middle">only if data arrives</text>
+
+      <rect class="box-w" x="556" y="176" width="180" height="52" rx="3"/>
+      <rect class="badge" x="562" y="182" width="15" height="13" rx="2"/>
+      <text class="badge-t" x="569.5" y="191.5" text-anchor="middle">4</text>
+      <text class="lt" x="646" y="198" text-anchor="middle">spinner forever</text>
+      <text class="lt-s" x="646" y="213" text-anchor="middle">no .catch() branch</text>
+
+      <path class="ln" d="M116 126 H146" marker-end="url(#ah1_en)"/>
+      <path class="ln" d="M304 126 H334" marker-end="url(#ah1_en)"/>
+
+      <!-- the failing branch is drawn in the accent colour: it is the live one -->
+      <path class="arw" d="M494 116 C524 116 516 50 548 50" marker-end="url(#ah2_en)"/>
+      <path class="arw-a" d="M494 136 C524 136 516 202 548 202" marker-end="url(#ah3_en)"/>
+      <text class="lt-s" x="506" y="104">200</text>
+      <text class="lt-s" x="500" y="160">503</text>
+
+      <text class="lt-s" x="392" y="196" text-anchor="middle">what happens today</text>
+      <path class="ln dash" d="M418 152 V186" stroke="var(--muted)"/>
+
+      <defs>
+        <marker id="ah1_en" viewBox="0 0 8 8" refX="7.5" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 0 L8 4 L0 8 z" fill="var(--ink)"/>
+        </marker>
+        <marker id="ah2_en" viewBox="0 0 8 8" refX="7.5" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 0 L8 4 L0 8 z" fill="var(--muted)"/>
+        </marker>
+        <marker id="ah3_en" viewBox="0 0 8 8" refX="7.5" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 0 L8 4 L0 8 z" fill="var(--accent)"/>
+        </marker>
+      </defs>
+    </svg>
+    <figcaption><b>The failure branch, and the branch that never existed.</b>
+    <span class="mono">Home.js</span> renders the spinner when its <span class="mono">data</span>
+    state is still <span class="mono">null</span>, and only a resolved promise
+    ever sets it. Because <span class="mono">App.js</span> chains
+    <span class="mono">.then()</span> with no <span class="mono">.catch()</span>, a
+    503 leaves the state untouched rather than raising something visible.
+    Read from the published source map, 26 Oct 2026.</figcaption>
+
+    <ol class="key">
+      <li><span class="kn">1</span><span class="kt"><b>browser</b> loads <span class="mono">/#/menu</span></span></li>
+      <li><span class="kn">2</span><span class="kt"><b>GitHub Pages</b> serves the static files, 200 OK</span></li>
+      <li><span class="kn">3</span><span class="kt"><b>Heroku backend</b> is asked for the menu JSON. Today it answers 503</span></li>
+      <li><span class="kn">4</span><span class="kt">with data, the menu draws. Without it, the spinner stays forever</span></li>
+    </ol>
+  </figure>
+
+  <div class="rows">
+    <div class="row"><span class="k">Backend URL, from the shipped bundle</span><span class="v">floating-spire-33339-….herokuapp.com</span></div>
+    <div class="row"><span class="k">Response to <span class="mono">GET /data</span>, 26 Oct 2026 00:52</span><span class="v">503</span></div>
+    <div class="row"><span class="k">Same URL over HTTPS in a browser context</span><span class="v">Failed to fetch</span></div>
+  </div>
+
+  <div class="note">
+    <p style="margin:0"><strong>Two ways out, and the cheap one is better.</strong>
+    Restart the Heroku dyno and the menu returns in minutes, but it will fail the
+    same way the next time the app sleeps or the free hours run out. Moving the
+    menu JSON into the GitHub Pages repo as a static file removes the backend, the
+    503, and the bill at once.</p>
+  </div>
+</section>
+
+<section>
+  <h2>All six, ranked by what they cost you</h2>
+  <p class="lede">Severity is business impact, not CVSS theatre. A forged email
+  outranks a dead menu page: the menu costs you sales, the email can cost your
+  customers money. Both are fixable today, but only one of them damages your
+  reputation, not just your takings.</p>
+
+  <table>
+    <thead>
+      <tr><th>#</th><th>Finding</th><th>Cost to the business</th><th>Fix in</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-l="#" class="num">01</td>
+        <td data-l="Finding">No DMARC record: anyone can send email as <span class="mono">@aftereightsousse.tn</span></td>
+        <td data-l="Cost">Brand phishing aimed at your own customers, from your own name</td>
+        <td data-l="Fix in"><span class="tag now">act now</span></td>
+      </tr>
+      <tr>
+        <td data-l="#" class="num">02</td>
+        <td data-l="Finding">Menu route fails permanently: backend returns 503, no error path in the code</td>
+        <td data-l="Cost">Customers cannot see or order food. The site's main job</td>
+        <td data-l="Fix in"><span class="tag now">act now</span></td>
+      </tr>
+      <tr>
+        <td data-l="#" class="num">03</td>
+        <td data-l="Finding">Two subdomains point at GitHub with no site behind them</td>
+        <td data-l="Cost">A stranger can host a page at <span class="mono">mail.</span>your domain</td>
+        <td data-l="Fix in"><span class="tag later">this month</span></td>
+      </tr>
+      <tr>
+        <td data-l="#" class="num">04</td>
+        <td data-l="Finding">Source map published: full app source plus the backend URL</td>
+        <td data-l="Cost">Nothing directly. Hands a reader a map</td>
+        <td data-l="Fix in"><span class="tag later">this month</span></td>
+      </tr>
+      <tr>
+        <td data-l="#" class="num">05</td>
+        <td data-l="Finding">axios 0.27.2, released April 2022, at least three advisories since</td>
+        <td data-l="Cost">None known reachable here. Maintenance hygiene</td>
+        <td data-l="Fix in"><span class="tag fine">when convenient</span></td>
+      </tr>
+      <tr>
+        <td data-l="#" class="num">06</td>
+        <td data-l="Finding">HTTPS on the bare domain fails; only <span class="mono">www</span> has a matching certificate</td>
+        <td data-l="Cost">A scary browser warning if anyone types it with https</td>
+        <td data-l="Fix in"><span class="tag fine">when convenient</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Two doors onto your domain are standing open</h2>
+  <p class="lede">This is the finding that looks alarming and is the least urgent
+  of the three. It matters for one specific reason: the address would be real, and
+  the certificate would be valid.</p>
+
+  <ol class="steps">
+    <li><span><b>Your DNS still points two names at GitHub.</b> <span class="mono">mail.</span>
+    and <span class="mono">ftp.aftereightsousse.tn</span> both resolve to
+    <span class="mono">185.199.108.153</span>, a GitHub Pages address. Nothing of
+    yours is hosted there.</span></li>
+    <li><span><b>GitHub answers with its own placeholder.</b> Ask for either name
+    and you get <span class="mono">Site not found · GitHub Pages</span> — proof
+    that GitHub is listening, and that no repository claims that name.</span></li>
+    <li><span><b>The ownership check was never done.</b> GitHub only refuses to
+    host a stranger's page on your domain if you have published a
+    <span class="mono">_github-pages-challenge-</span> TXT record proving you own
+    it. There is no such record anywhere in your zone.</span></li>
+    <li><span><b>So a stranger can claim it without touching anything of yours.</b>
+    They point their own repository at <span class="mono">mail.aftereightsousse.tn</span>;
+    GitHub sees DNS already pointing at it and begins serving. Your DNS is never
+    modified. The page appears in minutes, on your domain, with a
+    <span class="mono">CN=*.github.io</span> certificate that browsers accept.</span></li>
+  </ol>
+
+  <div class="note">
+    <p style="margin:0"><strong>What it is worth, and what it is not.</strong> No
+    password and no customer data are exposed — the site has no login and sets no
+    cookies. The prize is your name: a link people already half-trust, saying the
+    menu has moved and asking for a card number. That is why it ranks below the dead
+    menu: it needs someone to notice you, and the menu needs nobody to notice
+    anything.</p>
+  </div>
+
+  <p class="lede" style="margin-top:var(--s5);margin-bottom:0">The fix is to
+  delete both DNS records, since nothing lives at either address. If they are
+  needed later, re-add them together with the verification TXT record that
+  protects every subdomain at once.</p>
+</section>
+
+<section>
+  <h2>The three smaller ones</h2>
+
+  <div class="rows">
+    <div class="row"><span class="k"><b>Source map published.</b> <span class="mono">main.f3b18514.js.map</span>, 1.5 MB, serves your whole component tree verbatim</span><span class="v">200 OK</span></div>
+    <div class="row"><span class="k"><b>axios 0.27.2</b>, an April 2022 release, superseded twice over</span><span class="v">2022</span></div>
+    <div class="row"><span class="k"><b>No CSP, no <span class="mono">X-Frame-Options</span></b>. A third-party script could be framed or injected</span><span class="v">absent</span></div>
+  </div>
+
+  <p class="lede" style="margin-top:var(--s5)">None of these hands anyone your
+  data. The source map is the notable one in the other direction: it is how I
+  read every file on this page without touching your server. That is a fair
+  trade for a brochure site and a bad habit for anything with a login behind it.
+  If you leave it up, know that the backend URL and the full routing logic are
+  public.</p>
+
+  <div class="note">
+    <p style="margin:0"><strong>The bare domain, for completeness.</strong>
+    <span class="mono">https://aftereightsousse.tn</span> fails its certificate
+    check, because only <span class="mono">www</span> has a matching one.
+    Visiting <span class="mono">http://</span> works: it redirects to
+    <span class="mono">https://www.</span> and everything is fine. So this bites
+    only the visitor who types the bare domain and gets an https attempt first. Some will see a warning and leave.</p>
+  </div>
+</section>
+
+<section>
+  <h2>What I would do, in this order</h2>
+
+  <div class="panel">
+    <div class="rows">
+      <div class="row"><span class="k">1 · Bring the menu back, permanently: serve the JSON from the same GitHub Pages repo and delete the Heroku dependency</span><span class="v">today</span></div>
+      <div class="row"><span class="k">2 · Publish a DMARC record at <span class="mono">p=none</span> and read the first week of reports</span><span class="v">today</span></div>
+      <div class="row"><span class="k">3 · Delete the <span class="mono">mail.</span> and <span class="mono">ftp.</span> A-records</span><span class="v">this month</span></div>
+      <div class="row"><span class="k">4 · Turn off source map generation in the build, or accept it knowingly</span><span class="v">this month</span></div>
+      <div class="row"><span class="k">5 · Upgrade axios, add a redirect from the bare domain, then tighten DMARC to quarantine</span><span class="v">this quarter</span></div>
+    </div>
+  </div>
+
+  <p class="lede" style="margin-top:var(--s5);margin-bottom:0">Steps 1 and 2 are
+  both under an hour of work and neither needs a developer. Step 1 is the only one
+  that changes a number you can see.</p>
+</section>
+
+<footer>
+  <p style="margin:0 0 var(--s3)"><b>How this was tested.</b> Passive review only,
+  on 26 October 2026 between 00:45 and 01:05 Africa/Tunis. DNS queried directly;
+  HTTP responses and headers read with curl; the application source read from the
+  site's own published source map; the menu failure observed in a clean browser
+  profile. No exploitation was attempted, no credentials were used, and no
+  destructive test was run against the live site.</p>
+  <p style="margin:0 0 var(--s3)"><b>What I did not verify.</b> That the subdomain
+  claim in section 05 would actually succeed. I did not attempt it, because
+  attempting it means taking control of content on someone else's domain. The
+  reasoning is from GitHub's documented behaviour and OWASP's subdomain-takeover
+  guide, not from a live attempt. Treat it as well-evidenced, not proven.</p>
+  <p style="margin:0"><b>Prepared by</b> Ludi-1225 · github.com/Ludi-1225 ·
+  <span class="mono">aftereightsousse.tn</span> audit, 26 Oct 2026. The site
+  belongs to its owner; this page belongs to me and makes no claim on it.</p>
+</footer>
+
+</div>
+</div>
+
+
 </html>
