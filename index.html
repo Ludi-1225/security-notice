@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
 <title>Avis de sécurité — aftereightsousse.tn, 26 octobre 2026</title>
 <meta name="description" content="Six points relevés lors d'une revue passive de aftereightsousse.tn : un menu qui ne s'affiche plus, aucun DMARC, deux sous-domaines orphelins, et trois points mineurs.">
 <!--
@@ -10,7 +11,9 @@
   evidence, same design system; the prose is written in French rather than
   translated sentence-by-sentence, so the rhythm matches the language.
 
-  No <script>: the theme toggle is a hidden checkbox read by :has(). No external
+  No <script>: the theme toggle is a hidden checkbox read by :has(). It ships
+  CHECKED, so dark is the resting state and light is the opt-in. The label still
+  names the state you would switch to, not the one you are in. No external
   requests: fonts are data URIs, both screenshots are inline webp, the diagram
   is hand-authored SVG.
 -->
@@ -337,7 +340,7 @@ footer b{color:var(--ink-2);font-weight:400}
 </head>
 <body>
 
-<input class="sw" type="checkbox" id="dm">
+<input class="sw" type="checkbox" id="dm" checked>
 
 <div class="wrap">
 <header>
