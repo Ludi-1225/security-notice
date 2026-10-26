@@ -377,9 +377,8 @@ body:has(#lg:checked) .i18n.en{display:block}
             <p class="lead">Aucun enregistrement DMARC n'est publié sur votre domaine, et votre politique
       SPF se termine par un échec modéré. Un inconnu peut donc envoyer à vos clients des
       e-mails qui semblent provenir de votre adresse de réservation : demande d'acompte,
-      confirmation de table, lien. Rien ne vous avertit lorsque cela se produit. Le
-      second problème, un menu qui ne s'affiche jamais, se remarque plus facilement et
-      se corrige plus vite. Les deux peuvent être réglés aujourd'hui.</p>
+      confirmation de table, lien. Rien ne vous avertit lorsque cela se produit. Le second problème est un menu qui ne s'affiche jamais : il se remarque
+      davantage, et se corrige plus vite. Les deux se règlent aujourd'hui.</p>
     </div>
     <div>
       <label class="toggle tg-lang" for="lg">
@@ -446,7 +445,7 @@ body:has(#lg:checked) .i18n.en{display:block}
     <div class="panel">
       <p class="kicker">Probablement déjà connu · voici le mécanisme</p>
             <p style="font:400 1.3rem/1.35 var(--serif);margin:0 0 var(--s3)">Le menu ne se charge jamais, donc chaque plat et chaque prix restent hors de
-      portée. Rien n'est cassé dans la page. Elle attend des données qui n'arrivent
+      portée : rien n'est cassé dans la page, elle attend des données qui n'arrivent
       pas.</p>
       <div class="prose">
                 <p style="color:var(--ink-2);font-size:16px;margin:0">Le site est une application React. Il charge un unique fichier JSON depuis une
@@ -667,13 +666,12 @@ body:has(#lg:checked) .i18n.en{display:block}
   </ol>
 
   <div class="note">
-        <p style="margin:0"><strong>Ce que cela vaut, et ce que cela ne vaut pas.</strong> Aucun mot de
-    passe ni donnée client n'est exposé, car le site ne comporte pas de connexion et ne
-    dépose aucun cookie. Ce qui est en jeu, c'est votre nom : un lien auquel on accorde
-    déjà une demi-confiance, annonçant que le menu a déménagé et réclamant un numéro de
-    carte. C'est pourquoi il passe après le menu mort. Il ne fonctionne que si
-    quelqu'un vous remarque, alors que personne n'a besoin de remarquer qu'un menu ne se
-    charge pas.</p>
+        <p style="margin:0"><strong>Ce que cela vaut.</strong> Aucun mot de passe ni donnée client n'est
+    exposé, car le site ne comporte pas de connexion et ne dépose aucun cookie. Ce qui
+    est en jeu, c'est votre nom : un lien auquel on accorde déjà une demi-confiance,
+    annonçant que le menu a déménagé et réclamant un numéro de carte. C'est pourquoi il
+    passe après le menu mort. Il ne fonctionne que si quelqu'un vous remarque, alors que
+    personne n'a besoin de remarquer qu'un menu ne se charge pas.</p>
   </div>
 
     <p class="lede" style="margin-top:var(--s5);margin-bottom:0">La correction
@@ -729,8 +727,9 @@ body:has(#lg:checked) .i18n.en{display:block}
   de développeur. L'étape 1 est la seule qui fasse évoluer un chiffre que vous pouvez
   constater.</p>
 
-    <p class="lede" style="margin-top:var(--s4);margin-bottom:0">Les cinq premières étapes réparent ce qui est cassé. La sixième est une suggestion, pas une réparation. Le site tient sur une seule page, sans réservation
-  en ligne, construit pour tenir une après-midi, et il fait ce pour quoi il a été fait.
+    <p class="lede" style="margin-top:var(--s4);margin-bottom:0">Les cinq premières étapes réparent ce qui est cassé. La sixième est une
+  suggestion, pas une réparation. Le site tient sur une seule page, sans réservation en
+  ligne, construit pour tenir une après-midi, et il fait ce pour quoi il a été fait.
   C'est une porte d'entrée, pas encore une salle.</p>
 </section>
 
@@ -762,11 +761,11 @@ body:has(#lg:checked) .i18n.en{display:block}
     <div>
       <p class="kicker">Security and availability review · aftereightsousse.tn · 26 October 2026</p>
       <h1>Anyone can send emails to your customers pretending to be you</h1>
-            <p class="lead">Your domain has no DMARC record, and its SPF policy ends in a soft fail.
-      A stranger can therefore send email to your customers that appears to come from
-      your reservations address: a deposit request, a table confirmation, a link.
-      Nothing warns you when it happens. The second problem, a menu page that never
-      loads, is easier to notice and easier to fix. Both can be dealt with today.</p>
+            <p class="lead">Your domain has no DMARC record, and its SPF policy ends in a soft fail. A
+      stranger can therefore send emails to your customers that appear to come from your
+      reservations address: a deposit request, a table confirmation, a link. Nothing
+      warns you when it happens. The second problem, a menu page that never loads, is
+      easier to spot and quicker to fix. Both are fixable today.</p>
     </div>
     <div>
       <label class="toggle tg-lang" for="lg">
@@ -790,10 +789,9 @@ body:has(#lg:checked) .i18n.en{display:block}
 
 <section>
   <h2>Your domain has no instruction to reject a forged sender</h2>
-    <p class="lede">Two DNS records decide whether a message sent from your domain is genuine:
-  SPF and DMARC. The first is published but permissive, and the second is missing.
-  Neither one prevents forgery by itself. Together, as they stand, they amount to an
-  open invitation.</p>
+    <p class="lede">Two DNS records decide whether a message sent from your domain is genuine: SPF
+  and DMARC. The first is published but permissive, and the second is missing. Neither
+  prevents forgery on its own, and together they amount to an open invitation.</p>
 
   <div class="grid">
     <div class="panel">
@@ -819,7 +817,7 @@ body:has(#lg:checked) .i18n.en{display:block}
     <div class="row"><span class="k">Receiving servers told to reject forgeries</span><span class="v">no</span></div>
   </div>
 
-    <p class="lede" style="margin-top:var(--s5);margin-bottom:0">A one-line DMARC record in monitor mode costs nothing and cannot break your
+    <p class="lede" style="margin-top:var(--s5);margin-bottom:0">A one-line DMARC record in monitor mode costs nothing and can't break your
   mail, because at <span class="mono">p=none</span> it asks no server to block
   anything. It only starts sending you reports. Move to
   <span class="mono">p=quarantine</span> once those reports come back clean, usually
@@ -831,10 +829,9 @@ body:has(#lg:checked) .i18n.en{display:block}
 
   <div class="grid">
     <div class="panel">
-      <p class="kicker">Probably known already · here is the mechanism</p>
-            <p style="font:400 1.3rem/1.35 var(--serif);margin:0 0 var(--s3)">Every dish and every price is out of reach, because the menu never
-      arrives. Nothing on the page is broken. It is waiting for data that never
-      comes.</p>
+      <p class="kicker">Probably known already · here's the mechanism</p>
+            <p style="font:400 1.3rem/1.35 var(--serif);margin:0 0 var(--s3)">Every dish and every price is out of reach, because the menu never arrives:
+      nothing on the page is broken; it's waiting for data that never comes.</p>
       <div class="prose">
                 <p style="color:var(--ink-2);font-size:16px;margin:0">The site is a React application. It loads a single JSON file from a Heroku
         app and draws the menu only once that file arrives. The Heroku app answers
@@ -857,7 +854,7 @@ body:has(#lg:checked) .i18n.en{display:block}
     </figure>
     <figure class="shot">
       <img src="data:image/webp;base64,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" alt="The menu page: a blank white page with only a small green circular logo centred and no other content">
-            <figcaption><b>What does not.</b> The route <span class="mono">/#/menu</span>, one click
+            <figcaption><b>What doesn't.</b> The route <span class="mono">/#/menu</span>, one click
       further in. The green mark is the loading spinner
       <span class="mono">loader.89ba5735….png</span>, still turning after six
       seconds. Nothing else ever renders.</figcaption>
@@ -868,8 +865,8 @@ body:has(#lg:checked) .i18n.en{display:block}
   unedited apart from a crop of the empty margins.</p>
 
   <div class="note">
-        <p style="margin:0"><strong>The landing page is unaffected.</strong> It is a separate route with
-    no data dependency, which is exactly why the fault is easy to miss. The site looks
+        <p style="margin:0"><strong>The landing page is unaffected.</strong> It's a separate route with no
+    data dependency, which is exactly why the fault is easy to miss. The site looks
     healthy from the front door, and the failure waits one click behind it.</p>
   </div>
 </section>
@@ -971,10 +968,10 @@ body:has(#lg:checked) .i18n.en{display:block}
 
 <section>
   <h2>All six, ranked by what they cost you</h2>
-    <p class="lede">Severity here means business impact, not CVSS theatre. A forged email
-  outranks a dead menu page: the menu costs you sales, while the email can cost your
-  customers money, and it damages your reputation as well as your takings. Section 07
-  gives the schedule for each fix. This column records severity only.</p>
+    <p class="lede">Severity here means business impact, not CVSS theatre. A forged email outranks
+  a dead menu page: the menu costs you sales, while the email can cost your customers
+  money, and it damages your reputation as well as your takings. Section 07 gives the
+  schedule for each fix; this column records severity only.</p>
 
   <table>
     <thead>
@@ -990,7 +987,7 @@ body:has(#lg:checked) .i18n.en{display:block}
       <tr>
         <td data-l="#" class="num">02</td>
         <td data-l="Finding">Menu route fails permanently: backend returns 503, no error path in the code</td>
-        <td data-l="Cost">Customers cannot see or order food. The site's main job</td>
+        <td data-l="Cost">Customers can't see or order food. The site's main job</td>
         <td data-l="Severity"><span class="tag now">critical</span></td>
       </tr>
       <tr>
@@ -1048,12 +1045,11 @@ body:has(#lg:checked) .i18n.en{display:block}
   </ol>
 
   <div class="note">
-        <p style="margin:0"><strong>What this is worth, and what it is not.</strong> No passwords and no
-    customer data are exposed, because the site has no login and sets no cookies. What
-    is at stake is your name: a link people already half-trust, announcing that the
-    menu has moved and asking for a card number. That is why it ranks below the dead
-    menu. It only works if somebody notices you, whereas nobody has to notice that a
-    menu will not load.</p>
+        <p style="margin:0"><strong>What this is worth.</strong> No passwords and no customer data are
+    exposed, because the site has no login and sets no cookies. What's at stake is your
+    name: a link people already half-trust, announcing that the menu has moved and
+    asking for a card number. That's why it ranks below the dead menu. It only works if
+    somebody notices you, whereas nobody has to notice that a menu won't load.</p>
   </div>
 
     <p class="lede" style="margin-top:var(--s5);margin-bottom:0">The fix is to delete
@@ -1072,8 +1068,8 @@ body:has(#lg:checked) .i18n.en{display:block}
   </div>
 
     <p class="lede" style="margin-top:var(--s5)">None of these exposes your data to anyone. The source map is notable in the
-  other direction: it is how I read every file on this page without touching your
-  server. That is a fair trade for a brochure site and a poor habit for anything with a
+  other direction: it's how I read every file on this page without touching your
+  server. That's a fair trade for a brochure site and a poor habit for anything with a
   login behind it. If you leave it published, be aware that the backend URL and the
   full routing logic are public.</p>
 
@@ -1107,8 +1103,9 @@ body:has(#lg:checked) .i18n.en{display:block}
     <p class="lede" style="margin-top:var(--s5);margin-bottom:0">Steps 1 and 2 each take under an hour, and neither needs a developer. Step 1
   is the only one that changes a number you can see.</p>
 
-    <p class="lede" style="margin-top:var(--s4);margin-bottom:0">The first five steps address what is broken. The sixth is a suggestion rather than a repair. The site is a single page with no way to reserve online, built to hold
-  together for an afternoon, and it does what it was made to do. It is a front door,
+    <p class="lede" style="margin-top:var(--s4);margin-bottom:0">The first five steps repair what's broken. The sixth is a suggestion rather
+  than a repair. The site is a single page with no way to reserve online, built to hold
+  together for an afternoon, and it does what it was made to do. It's a front door,
   not yet a room.</p>
 </section>
 
@@ -1119,11 +1116,11 @@ body:has(#lg:checked) .i18n.en{display:block}
   site's own published source map; the menu failure was observed in a clean browser
   profile. No exploitation was attempted, no credentials were used, and no destructive
   test was run against the live site.</p>
-    <p style="margin:0 0 var(--s3)"><b>What I did not verify.</b> That the subdomain
-  claim described in section 05 would actually succeed. I did not attempt it, because
-  attempting it means taking control of content on someone else's domain. The
-  reasoning rests on GitHub's documented behaviour and on the OWASP subdomain-takeover
-  guide, not on a live attempt. Consider it well evidenced, not proven.</p>
+    <p style="margin:0 0 var(--s3)"><b>What I didn't verify.</b> That the subdomain claim described in section 05
+  would actually succeed. I didn't attempt it, because attempting it means taking
+  control of content on someone else's domain. The reasoning rests on GitHub's
+  documented behaviour and on the OWASP subdomain-takeover guide, not on a live
+  attempt. Consider it well evidenced, not proven.</p>
   <p style="margin:0"><b>Prepared by</b> Ludi-1225 · github.com/Ludi-1225 ·
   <span class="mono">aftereightsousse.tn</span> audit, 26 Oct 2026. The site
   belongs to its owner; this page belongs to me and makes no claim on it.</p>
